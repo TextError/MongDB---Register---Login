@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { NavLink, withRouter } from 'react-router-dom';
 
@@ -109,10 +108,6 @@ class Navbar extends Component {
       </nav>
     )
   }
-};
-
-Navbar.propTypes = {
-
 };
 
 const mapStateToProps = state => ({

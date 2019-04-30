@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
+// Redux
+import { connect } from 'react-redux';
+import { registerUser } from '../../../redux/actions/register';
 
 // Components
 import LabelInput from '../../common/components/Label_Input';
 
-export default class Register extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,7 +32,7 @@ export default class Register extends Component {
     
     const data = { first_name, last_name, email, password, password2 };
     
-    console.log(data)
+    this.props.registerUser(data, this.props.history)
   };
 
   render() {
@@ -101,3 +107,14 @@ export default class Register extends Component {
     )
   }
 }
+
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));

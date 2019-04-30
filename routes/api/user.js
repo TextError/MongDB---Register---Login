@@ -15,7 +15,7 @@ const User = require('../../models/User');
 router.post('/register', (req, res) => {
   // Validate
   const { errors, isValid } = validateRegisterInput(req.body);
-
+  
   // Check Validation
   if (!isValid) {
     return res.status(400).json(errors);
@@ -28,7 +28,8 @@ router.post('/register', (req, res) => {
     } else {
 
       const newUser = new User({
-        name: req.body.name,
+        firstName: req.body.first_name,
+        lastName: req.body.last_name,
         email: req.body.email,
         password: req.body.password
       });
