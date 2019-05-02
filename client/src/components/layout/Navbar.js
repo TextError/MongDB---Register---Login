@@ -21,7 +21,8 @@ class Navbar extends Component {
 
   render() {
 
-    const { show, isAuthenticated } = this.state;
+    const { isAuthenticated } = this.props.authenticated;
+    const { show } = this.state;
 
     // isAuthenticated === true
     const authLinks = (
@@ -111,8 +112,8 @@ class Navbar extends Component {
 };
 
 const mapStateToProps = state => ({
-
+  authenticated: state.authenticated
 });
 
 
-export default connect(mapStateToProps, {})(withRouter(Navbar))
+export default connect(mapStateToProps, {  })(withRouter(Navbar))
