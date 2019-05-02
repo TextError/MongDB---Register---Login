@@ -18,6 +18,17 @@ class Login extends Component {
   };
 
   componentDidMount() {
+    const { isAuthenticated } = this.props.authenticated;
+    if (isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
+  componentDidUpdate() {
+    const { isAuthenticated } = this.props.authenticated;
+    if (isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
   }
 
 
@@ -84,7 +95,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-
+  errors: state.errors,
+  authenticated: state.authenticated,
 });
 
 
