@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
+// Redux
+import { connect } from 'react-redux';
+
 // Components
 import LabelInput from '../../common/components/Label_Input';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -74,3 +77,10 @@ export default class Login extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+
+});
+
+
+export default connect( mapStateToProps, {  } )(Login);
