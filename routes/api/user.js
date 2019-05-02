@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
 const passport = require('passport');
 
 // Load Input Validations
@@ -31,8 +32,8 @@ router.post('/register', (req, res) => {
     } else {
 
       const newUser = new User({
-        firstName: req.body.first_name,
-        lastName: req.body.last_name,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password
       });
@@ -80,7 +81,11 @@ router.post('/login', (req, res) => {
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           // User Matched
-          const payload = { id: user.id, first_name: user.first_name }; // Create JWT Payload
+          const payload = { 
+            id: user.id, 
+            first_name: user.first_name, 
+            last_name: user.last_name 
+          }; // Create JWT Payload
 
           // Sign Token
           jwt.sign(

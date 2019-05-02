@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // Redux
 import { connect } from 'react-redux';
+import { loginUser } from '../../../redux/actions/login';
 
 // Components
 import LabelInput from '../../common/components/Label_Input';
@@ -16,6 +17,10 @@ class Login extends Component {
     }
   };
 
+  componentDidMount() {
+  }
+
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -24,9 +29,9 @@ class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     
-    const data = { email, password };
+    const userData = { email, password };
     
-    console.log(data)
+    this.props.loginUser(userData);
   };
 
   render() {
@@ -83,4 +88,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect( mapStateToProps, {  } )(Login);
+export default connect( mapStateToProps, { loginUser } )(Login);

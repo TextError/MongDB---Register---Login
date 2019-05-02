@@ -8,7 +8,7 @@ import { ERRORS, ACCOUNT } from './types';
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
   axios
-    .post(`${BACKEND}/login`, userData)
+    .post(`${BACKEND.USER}/login`, userData)
     .then(res => {
     // Save to localStorage
 
@@ -37,7 +37,7 @@ export const loginUser = userData => dispatch => {
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
-    type: ACCOUNT.LOGIN,
+    type: ACCOUNT.AUTHENTICATED,
     payload: decoded
   };
 };
