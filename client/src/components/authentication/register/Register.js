@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import isEmpty from '../../validation/isEmpty';
 
 // Redux
 import { connect } from 'react-redux';
 import { registerUser } from '../../../redux/actions/register';
+import { clearError } from '../../../redux/actions/common';
 
 // Components
 import LabelInput from '../../common/components/Label_Input';
@@ -18,9 +20,17 @@ class Register extends Component {
       email: '',
       password: '',
       password2: '',
-      errors: ''
     }
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { errors } = this.props.errors;
+
+    // Reset the errors
+    if (!isEmpty(errors)) {
+      setTimeout(() => { this.props.clearError() }, 3000);
+    }
+  }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -37,7 +47,7 @@ class Register extends Component {
 
   render() {
 
-    const { errors } = this.state;
+    const { errors } = this.props.errors;
 
     return (
       <div className='register'>
@@ -58,7 +68,7 @@ class Register extends Component {
                           name='first_name'
                           value={this.state.first_name}
                           onChange={this.onChange}
-                          error={errors}
+                          error={errors.first_name}
                         />
                         <LabelInput
                           text='Last Name'
@@ -66,7 +76,7 @@ class Register extends Component {
                           icon='fas fa-user'
                           value={this.state.last_name}
                           onChange={this.onChange}
-                          error={errors}
+                          error={errors.last_name}
                         />
                         <LabelInput
                           text='Email'
@@ -75,7 +85,7 @@ class Register extends Component {
                           type='email'
                           value={this.state.email}
                           onChange={this.onChange}
-                          error={errors}
+                          error={errors.email}
                         />
                         <LabelInput 
                           text='Password'
@@ -84,7 +94,7 @@ class Register extends Component {
                           type='password'
                           value={this.state.password}
                           onChange={this.onChange}
-                          error={errors}
+                          error={errors.password}
                         />
                         <LabelInput 
                           text='Confirm Password'
@@ -93,7 +103,7 @@ class Register extends Component {
                           type='password'
                           value={this.state.password2}
                           onChange={this.onChange}
-                          error={errors}
+                          error={errors.password2}
                         />
                       <input type="submit" value="Register" className="btn btn-secondary btn-block" />
                     </form>
@@ -110,6 +120,7 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -117,4 +128,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(mapStateToProps, { registerUser, clearError })(withRouter(Register));
