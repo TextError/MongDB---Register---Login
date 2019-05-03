@@ -15,6 +15,12 @@ const authenticated = (state = initialState, action) => {
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
       };
+    case ACCOUNT.LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: action.payload
+      };
     default:
       return state;
   }

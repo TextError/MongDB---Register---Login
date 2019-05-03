@@ -4,6 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 // Redux
 import { connect } from 'react-redux';
+import { logoutUser } from '../../redux/actions/logout';
 
 // Components
 import Logo from './Logo';
@@ -18,6 +19,10 @@ class Navbar extends Component {
   }
 
   onClick = () => { this.setState({ show: !this.state.show }); };
+  onSignOut = () => { 
+    // Clears cookie;
+    this.props.logoutUser();
+  }
 
   render() {
 
@@ -116,4 +121,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, {  })(withRouter(Navbar))
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar))

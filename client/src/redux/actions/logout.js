@@ -1,4 +1,3 @@
-import { setCurrentUser } from './login';
 import setAuthToken from '../../utils/setAuthToken';
 import { ACCOUNT } from './types';
 
@@ -9,7 +8,13 @@ export const logoutUser = () => dispatch => {
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
-  dispatch(setCurrentUser({}));
-  // Redux logout msg
-  dispatch({type: ACCOUNT.LOGOUT});
+  dispatch(setLogoutUser({}));
+};
+
+// Set logged in user
+export const setLogoutUser = () => {
+  return {
+    type: ACCOUNT.LOGOUT,
+    payload: {}
+  };
 };
