@@ -15,6 +15,7 @@ import NotFound from './components/not-found/NotFound';
 import store from './store';
 import { Provider } from 'react-redux';
 import { setCurrentUser } from './redux/actions/login';
+import { logoutUser, setLogoutUser } from './redux/actions/logout';
 
 // Layout
 import Navbar from './components/layout/Navbar';
@@ -35,6 +36,18 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
+
+
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Clear current Profile
+    store.dispatch(setLogoutUser());
+    // Redirect to login
+    window.location.href = '/login';
+  }
 }
 
 class App extends Component {
